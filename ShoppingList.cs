@@ -45,12 +45,11 @@ class ShoppingList
     {
         foreach (Item item in items)
         {
-            if (item.Name == name)
+            if (String.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase))
             {
                 return item;
             }
         }
-
         return null;
     }
 

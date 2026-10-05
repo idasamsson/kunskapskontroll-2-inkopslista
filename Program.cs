@@ -60,7 +60,7 @@ while (true)
     else if (choice == 4)
     {
         Console.Write("Namn att söka efter: ");
-        string wanted = Console.ReadLine();
+        string wanted = Console.ReadLine().Trim();
         Item found = list.Find(wanted);
 
         if (found == null)

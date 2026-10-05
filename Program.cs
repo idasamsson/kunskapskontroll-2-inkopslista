@@ -1,3 +1,5 @@
+using System.ComponentModel.Design;
+
 ShoppingList list = new ShoppingList("items.txt");
 list.Load();
 
@@ -20,7 +22,12 @@ while (true)
         Console.Write("Namn: ");
         string name = Console.ReadLine();
         Console.Write("Pris: ");
-        int price = int.Parse(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out int price))
+        {
+            Console.WriteLine("Du har skrivit in ett ogiltig pris.");
+            continue;
+        }
+
         list.Add(new Item(name, price));
     }
     else if (choice == 2)

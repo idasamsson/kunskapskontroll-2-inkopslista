@@ -1,4 +1,0 @@
-14;mjölk
-56;smör
-75;ost
-73;blöjor;

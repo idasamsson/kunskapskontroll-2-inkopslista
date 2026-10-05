@@ -85,24 +85,31 @@ class ShoppingList
     {
         string[] lines;
         
-            try
-            {
-                lines = File.ReadAllLines(path);
-            }
-            catch (FileNotFoundException)
-            {
-                return;
-            }
+        try
+        {
+            lines = File.ReadAllLines(path);
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Det finns ingen lista än, lägg till en vara för att påbörja listan.");
+            return;
+        }
 
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split(';');
-                
-                    if (parts.Length != 2)
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split(';');
+            
+                if (parts.Length != 2)
                 {
                     continue;
                 }
-                items.Add(new Item(parts[1], int.Parse(parts[0])));
-            }
+                if (!int.TryParse(parts[0], out int price))
+                {
+                    Console.WriteLine("En rad hoppades över då priset är ogiltigt.");
+                    continue;
+                }
+            
+            items.Add(new Item(parts[1], price));
+        }
     }
 }

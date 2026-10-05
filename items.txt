@@ -1,3 +1,4 @@
-15;Mjölk
-32;Bröd
-89;Ost
+14;mjölk
+56;smör
+75;ost
+73;blöjor;

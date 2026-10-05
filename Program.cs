@@ -15,7 +15,11 @@ while (true)
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    int choice = int.Parse(Console.ReadLine());
+   if(!int.TryParse(Console.ReadLine(), out int choice) ||choice < 1 || choice > 5)
+    {
+        Console.WriteLine("Du måste skriva en siffra som finns i menyn.");
+        continue;
+    }
 
     if (choice == 1)
     {
@@ -24,18 +28,31 @@ while (true)
         Console.Write("Pris: ");
         if (!int.TryParse(Console.ReadLine(), out int price))
         {
-            Console.WriteLine("Du har skrivit in ett ogiltig pris.");
+            Console.WriteLine("Du har skrivit in ett ogiltig pris, varan har inte lagts till.");
             continue;
         }
 
         list.Add(new Item(name, price));
     }
+
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        int number = int.Parse(Console.ReadLine());
-        list.RemoveAt(number);
+        if(!int.TryParse(Console.ReadLine(), out int number))
+        {
+            Console.WriteLine("Du måste skriva ett tal.");
+        }
+         try
+        {
+            list.RemoveAt(number);  
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Console.WriteLine("Siffran måste finnas i listan.");
+            continue;
+        }
     }
+
     else if (choice == 3)
     {
         list.Save();

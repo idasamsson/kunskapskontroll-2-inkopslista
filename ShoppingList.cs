@@ -19,6 +19,11 @@ class ShoppingList
     // Removes the item the user sees as number 1, 2, 3 ...
     public void RemoveAt(int number)
     {
+        if(number > items.Count || number < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(number), "Du måste skriva en siffra som finns i listan.");
+        }
+
         items.RemoveAt(number - 1);
     }
 
@@ -75,6 +80,7 @@ class ShoppingList
         }
         catch
         {
+            
         }
 
         Console.WriteLine("Listan är sparad.");

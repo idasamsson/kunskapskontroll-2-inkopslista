@@ -1,0 +1,3 @@
+12;mjölk
+78;ost
+34;finglor

@@ -77,13 +77,16 @@ class ShoppingList
         try
         {
             File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            Console.WriteLine("Listan är sparad.");
         }
-        catch
+        catch (UnauthorizedAccessException)
         {
-            
+            Console.WriteLine("Listan kunde inte sparas, du har inte behörighet.");
         }
-
-        Console.WriteLine("Listan är sparad.");
+        catch (IOException)
+        {
+            Console.WriteLine("Listan kunde inte sparas.");
+        }
     }
 
     // Reads the file back into the list.

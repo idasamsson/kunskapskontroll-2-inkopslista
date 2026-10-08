@@ -1,6 +1,6 @@
 using System.ComponentModel.Design;
 
-ShoppingList list = new ShoppingList("items.txt");
+ShoppingList list = new ShoppingList("items.txt", 100);
 list.Load();
 
 while (true)
@@ -28,11 +28,27 @@ while (true)
         Console.Write("Pris: ");
         if (!int.TryParse(Console.ReadLine(), out int price))
         {
-            Console.WriteLine("Du har skrivit in ett ogiltig pris, varan har inte lagts till.");
+            Console.WriteLine("Du har skrivit in ett ogiltigt pris, varan har inte lagts till.");
             continue;
         }
-
-        list.Add(new Item(name, price));
+        try
+        {
+            list.Add(new Item(name, price));
+            Console.WriteLine("Varan är tillagd.");
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Console.WriteLine("Priset kan inte vara negativt.");
+        }
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Namnet får inte vara tomt eller innehålla semikolon.");
+        }
+        catch (InvalidOperationException)
+        {
+            Console.WriteLine("Du överskrider din budget med den här varan.");
+        }
+        
     }
 
     else if (choice == 2)

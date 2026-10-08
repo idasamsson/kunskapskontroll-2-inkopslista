@@ -1,19 +1,29 @@
 // Holds the items and takes care of loading and saving them.
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices.Marshalling;
 
 class ShoppingList
 {
     private List<Item> items = new List<Item>();
     private string path;
 
-    public ShoppingList(string path)
+    private int budgetLimit;
+
+    public ShoppingList(string path, int budgetLimit)
     {
         this.path = path;
+        this.budgetLimit = budgetLimit;
     }
 
     public void Add(Item item)
     {
+        if (budgetLimit < Total() + item.Price)
+        {
+            throw new InvalidOperationException ("Varans pris spräcker budgettaket.");
+        }
+        
         items.Add(item);
+             
     }
 
     // Removes the item the user sees as number 1, 2, 3 ...

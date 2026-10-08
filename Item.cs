@@ -6,9 +6,9 @@ class Item
 
     public Item(string name, int price)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(name) || name.Contains(';'))
         {
-            throw new ArgumentException("Namnet får inte vara tomt.", nameof(name));
+            throw new ArgumentException("Namnet får inte vara tomt eller innehålla semikolon.", nameof(name));
         }
         if (price < 0)
         {

@@ -126,8 +126,14 @@ class ShoppingList
                     Console.WriteLine("En rad hoppades över då priset är ogiltigt.");
                     continue;
                 }
-            
-            items.Add(new Item(parts[1], price));
+            try
+            {
+               items.Add(new Item(parts[1], price)); 
+            }
+            catch(ArgumentException)
+            {
+                Console.WriteLine("En rad i filen hoppades över eftersom namnet eller priset är ogiltigt.");
+            }
         }
     }
 }

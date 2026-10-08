@@ -57,6 +57,7 @@ while (true)
         if(!int.TryParse(Console.ReadLine(), out int number))
         {
             Console.WriteLine("Du måste skriva ett tal.");
+            continue;
         }
          try
         {

@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 
 ShoppingList list = new ShoppingList("items.txt", 100);
 list.Load();

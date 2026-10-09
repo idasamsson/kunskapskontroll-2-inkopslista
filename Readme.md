@@ -61,3 +61,43 @@ Eftersom `catch` var tom så fångades undantaget men inget gjordes och programm
 
 *Lösning:*  
 Jag flyttade upp "Listan är sparad" till `try` och lade in `UnauthorizedAccessException` och `IOException` i `catch`. `UnauthorizedAccessException` fångar skrivskydd eller saknad behörighet, och `IOException` fångar till exempel att filen är låst av ett annat program eller att disken är full. I varje `catch` finns nu också ett meddelande som säger att listan inte sparats. 
+
+# Designval
+När budgettaket spricker upptäcks det i `Add` som kastar `InvalidOperationException`. Jag valde en `throw` framför en `bool: false` för då får `Program.cs` veta att något gick fel, ett undantag kan inte ignoreras av misstag. Med en `bool` måste `Program.cs` komma ihåg att kolla svaret varje gång, annars lätt glöms det bort. Regeln ligger i `ShoppingList` men det är `Program.cs` som pratar med användaren. `Program.cs` tar emot svaret och skriver ett felmeddelande till användaren genom `catch` och programmet fortsätter.
+
+# Klassdiagram
+
+```mermaid
+classDiagram
+    direction LR
+
+    class Program {
+    menyn och inmatning
+    try/catch för undantag
+}
+
+    class ShoppingList {
+        -items: List~Item~
+        -path: string
+        -budgetLimit: int
+        +ShoppingList(path: string, budgetLimit: int)
+        +Add(item: Item) void
+        +RemoveAt(number: int) void
+        +Total() int
+        +Find(name: string) Item
+        +Print() void
+        +Save() void
+        +Load() void
+    }
+
+    class Item {
+        +Name: string
+        +Price: int
+        +Item(name: string, price: int)
+        +ToString() string
+    }
+
+    Program --> "1" ShoppingList : använder
+    Program ..> Item : skapar
+    ShoppingList o-- "0..*" Item : innehåller
+```
